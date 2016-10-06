@@ -1,1 +1,1 @@
-module.exports = require('./lib/bridges/mongojs-bridge.js');
+module.exports = require('./lib/bridges/mongodb-bridge.js');

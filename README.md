@@ -1,3 +1,3 @@
-# devebot-co-mongojs
+# devebot-co-mongodb
 
-> Devebot -co- mongojs bridge
+> Devebot -co- mongodb bridge
