@@ -16,6 +16,10 @@ utils.buildMongodbUrl = function(host, port, name, username, password, authSourc
     authSource = mongodb_conf.authSource;
   }
   
+  host = host || 'localhost';
+  port = port || 27017;
+  name = name || 'test';
+
   var mongodb_auth = [];
   if (lodash.isString(username) && username.length > 0) {
     mongodb_auth.push(username);
@@ -33,5 +37,10 @@ utils.buildMongodbUrl = function(host, port, name, username, password, authSourc
   
   return url;
 };
+
+utils.emptyLogger = {
+  has: function() { return false },
+  log: function() {}
+}
 
 module.exports = utils;
