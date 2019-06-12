@@ -13,18 +13,13 @@ function Service(params) {
 
   const L = this.logger || chores.emptyLogger, T = this.tracer;
 
-  const mongo_conf = params.connection_options || params.connectionOptions || {};
+  const mongo_conf = params.connection_options || params.connectionOptions || params || {};
   const connection_string = chores.buildMongodbUrl(mongo_conf);
-  const connection_options = lodash.pick(mongo_conf, [
-    "uri_decode_auth",
-    "db",
-    "server",
-    "replSet",
-    "mongos"
-  ])
+  const connection_options = extractConnectionOpts(mongo_conf);
 
-  this.open = function(url) {
+  this.open = function(url, opts) {
     url = url || connection_string;
+    opts = opts || connection_options;
     return Promise.promisify(function(done) {
       MongoClient.connect(url, connection_options, function(err, client) {
         L && T && L.has('debug') && L.log('debug', T.add({ url }).toMessage({
@@ -36,6 +31,20 @@ function Service(params) {
   }
 };
 
-Service.metadata = require('./metadata');
+function extractConnectionOpts(conf = {}) {
+  const connection_options = lodash.get(conf, "options", {});
+  if (false) {
+    return lodash.pick(connection_options, [
+      "uri_decode_auth",
+      "db",
+      "server",
+      "replSet",
+      "mongos"
+    ]);
+  }
+  return connection_options;
+}
+
+Service.manifest = require('./manifest');
 
 module.exports = Service;
