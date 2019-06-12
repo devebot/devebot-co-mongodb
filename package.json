@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "devebot": "^0.2.6",
-    "mongodb": "^3.0.5"
+    "mongodb": "^3.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
