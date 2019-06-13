@@ -8,6 +8,12 @@ var utils = {};
 utils.buildMongodbUrl = function(host, port, name, username, password, authSource) {
   if (lodash.isObject(host)) {
     var mongodb_conf = host;
+    if (lodash.isString(mongodb_conf.url)) {
+      return mongodb_conf.url;
+    }
+    if (lodash.isString(mongodb_conf.connection_string)) {
+      return mongodb_conf.connection_string;
+    }
     host = mongodb_conf.host;
     port = mongodb_conf.port;
     name = mongodb_conf.name;
